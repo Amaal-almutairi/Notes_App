@@ -6,7 +6,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-
+import android.provider.ContactsContract
 
 
 // her we call SQLiteOpenHelper Library context means the constructor , name "means the file name ", factory
@@ -62,6 +62,23 @@ class DBHLP (context: Context): SQLiteOpenHelper(context,"Notes.db", null,1 ) {
         return Not1
 
     }
+// update function
+    fun updatNote(Note: String, upnote: String) : Int{
+        SQLitD=writableDatabase
+    // add new note
+        val cv = ContentValues()
+        cv.put("Note",upnote)
+
+        var up = SQLitD.update("AddNotes",cv,"Note =?", arrayOf(Note))
+
+        return up
+    }
+    // delete function
+    fun deleteNote(note: String){
+        SQLitD=writableDatabase
+        SQLitD.delete("AddNotes","Note=?", arrayOf(note))
+    }
+
 
 
 }
